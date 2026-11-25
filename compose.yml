@@ -19,13 +19,12 @@ services:
   valkey:
     image: valkey/valkey:9
     restart: always
-    command: ["valkey-server", "--requirepass", "admin"]
     ports:
       - "127.0.0.1:6379:6379"
     volumes:
       - valkey_data:/data
     healthcheck:
-      test: ["CMD", "valkey-cli", "-a", "admin", "ping"]
+      test: ["CMD", "valkey-cli", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
