@@ -17,6 +17,8 @@ protected function getRedirectUrl(): string
 }
 ```
 
+- `Create` pages must disable the "create another" button with `protected static bool $canCreateAnother = false;`.
+
 - Use `$recordTitleAttribute` so records are labelled by their main column, and set `$modelLabel`/`$pluralModelLabel` explicitly for Indonesian nouns that do not pluralize (e.g. `Bidang`).
 - Put master data resources under the `Data Master` navigation group.
 

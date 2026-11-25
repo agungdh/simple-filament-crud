@@ -33,6 +33,7 @@ it('can list bidangs', function () {
 
 it('can create a bidang', function () {
     Livewire::test(CreateBidang::class)
+        ->assertActionDoesNotExist('createAnother')
         ->fillForm([
             'bidang' => 'Keuangan',
         ])
