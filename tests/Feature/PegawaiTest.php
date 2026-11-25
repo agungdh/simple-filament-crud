@@ -32,6 +32,19 @@ it('can list pegawais', function () {
         ->assertCanSeeTableRecords($pegawais);
 });
 
+it('can filter pegawais by bidang', function () {
+    $bidang = Bidang::factory()->create();
+    $matchingPegawai = Pegawai::factory()->create([
+        'bidang_id' => $bidang->id,
+    ]);
+    $otherPegawai = Pegawai::factory()->create();
+
+    Livewire::test(ListPegawais::class)
+        ->filterTable('bidang_id', $bidang->id)
+        ->assertCanSeeTableRecords([$matchingPegawai])
+        ->assertCanNotSeeTableRecords([$otherPegawai]);
+});
+
 it('can create a pegawai', function () {
     $bidang = Bidang::factory()->create();
 
