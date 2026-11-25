@@ -1,11 +1,12 @@
 <?php
 
+use App\Filament\Resources\Bidangs\BidangResource;
 use App\Filament\Resources\Bidangs\Pages\CreateBidang;
 use App\Filament\Resources\Bidangs\Pages\EditBidang;
 use App\Filament\Resources\Bidangs\Pages\ListBidangs;
 use App\Models\Bidang;
 use App\Models\User;
-use Filament\Actions\DeleteAction;
+use Filament\Actions\Testing\TestAction;
 use Filament\Facades\Filament;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
@@ -37,7 +38,8 @@ it('can create a bidang', function () {
         ])
         ->call('create')
         ->assertHasNoFormErrors()
-        ->assertNotified();
+        ->assertNotified()
+        ->assertRedirect(BidangResource::getUrl('index'));
 
     assertDatabaseHas(Bidang::class, [
         'bidang' => 'Keuangan',
@@ -81,7 +83,8 @@ it('can edit a bidang', function () {
         ])
         ->call('save')
         ->assertHasNoFormErrors()
-        ->assertNotified();
+        ->assertNotified()
+        ->assertRedirect(BidangResource::getUrl('index'));
 
     assertDatabaseHas(Bidang::class, [
         'id' => $bidang->id,
@@ -89,13 +92,11 @@ it('can edit a bidang', function () {
     ]);
 });
 
-it('can delete a bidang', function () {
+it('can delete a bidang from the table', function () {
     $bidang = Bidang::factory()->create();
 
-    Livewire::test(EditBidang::class, [
-        'record' => $bidang->getRouteKey(),
-    ])
-        ->callAction(DeleteAction::class)
+    Livewire::test(ListBidangs::class)
+        ->callAction(TestAction::make('delete')->table($bidang))
         ->assertNotified();
 
     assertDatabaseMissing($bidang);

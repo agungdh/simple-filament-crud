@@ -1,4 +1,53 @@
 <laravel-boost-guidelines>
+=== .ai/filament rules ===
+
+# Filament Resources
+
+This project uses Filament v5 with a single `admin` panel.
+
+## CRUD conventions
+
+- Generate resources with `php artisan make:filament-resource {Model} --generate --no-interaction` after the migration exists.
+- Keep the form and table definitions in `Schemas/{Model}Form.php` and `Tables/{Models}Table.php`; do not embed them in the resource class.
+- Every resource table must expose row-level `EditAction` and `DeleteAction` in `recordActions()`.
+- Delete is available only from the table. Do not add `DeleteAction` to the header actions of the edit page.
+- `Create` and `Edit` pages must override `getRedirectUrl()` so saving returns to the index:
+
+```php
+protected function getRedirectUrl(): string
+{
+    return $this->getResource()::getUrl('index');
+}
+```
+
+- Use `$recordTitleAttribute` so records are labelled by their main column, and set `$modelLabel`/`$pluralModelLabel` explicitly for Indonesian nouns that do not pluralize (e.g. `Bidang`).
+- Put master data resources under the `Data Master` navigation group.
+
+## Models
+
+- Use the `#[Fillable([...])]` and `#[Hidden([...])]` attributes instead of the `$fillable`/`$hidden` properties.
+- Add a factory and a seeder for every new model.
+
+=== .ai/testing rules ===
+
+# Testing
+
+## Filament resource tests
+
+- Every resource has a Pest feature test in `tests/Feature/{Model}Test.php` using `RefreshDatabase`.
+- Cover listing, creating, `required` and `unique` validation, editing, and deleting.
+- Test delete from the list page's table action:
+
+```php
+Livewire::test(ListBidangs::class)
+    ->callAction(TestAction::make('delete')->table($bidang))
+    ->assertNotified();
+```
+
+- Assert that create and edit redirect to the resource index with `assertRedirect(BidangResource::getUrl('index'))`.
+- In `beforeEach`, authenticate with `actingAs(User::factory()->create())` and call `Filament::setCurrentPanel('admin')`.
+- Use `Livewire::test()` because `pest-plugin-livewire` is not installed.
+
 === foundation rules ===
 
 # Laravel Boost Guidelines
@@ -97,6 +146,16 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 
 - Laravel can be deployed using [Laravel Cloud](https://cloud.laravel.com/), which is the fastest way to deploy and scale production Laravel applications.
 - Activate the `deploying-to-cloud` skill whenever deploying to Laravel Cloud, configuring Cloud environments or resources, using the Cloud CLI, or troubleshooting Cloud deployments.
+
+=== tests rules ===
+
+# Test Enforcement
+
+- Add or update tests for behavior and logic changes when a test provides meaningful regression coverage.
+- Pure copy, styling, and layout-only changes do not require new or updated tests.
+- When test coverage applies, run the affected tests and ensure they pass.
+- Test the changed behavior and its important failure modes, but do not add tests beyond them.
+- Read the `testing-best-practices` skill before writing tests.
 
 === laravel/core rules ===
 
