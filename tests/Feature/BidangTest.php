@@ -5,6 +5,7 @@ use App\Filament\Resources\Bidangs\Pages\CreateBidang;
 use App\Filament\Resources\Bidangs\Pages\EditBidang;
 use App\Filament\Resources\Bidangs\Pages\ListBidangs;
 use App\Models\Bidang;
+use App\Models\Pegawai;
 use App\Models\User;
 use Filament\Actions\Testing\TestAction;
 use Filament\Facades\Filament;
@@ -101,4 +102,18 @@ it('can delete a bidang from the table', function () {
         ->assertNotified();
 
     assertDatabaseMissing($bidang);
+});
+
+it('cannot delete a bidang that is used by a pegawai', function () {
+    $bidang = Bidang::factory()->create();
+    Pegawai::factory()->create([
+        'bidang_id' => $bidang->id,
+    ]);
+
+    Livewire::test(ListBidangs::class)
+        ->assertActionDisabled(TestAction::make('delete')->table($bidang));
+
+    assertDatabaseHas(Bidang::class, [
+        'id' => $bidang->id,
+    ]);
 });

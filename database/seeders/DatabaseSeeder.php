@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call(BidangSeeder::class);
+        $this->call(PegawaiSeeder::class);
     }
 }

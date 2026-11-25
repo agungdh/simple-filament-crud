@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Bidangs\Tables;
 
+use App\Models\Bidang;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -33,8 +34,13 @@ class BidangsTable
             ])
             ->recordActions([
                 EditAction::make(),
-                DeleteAction::make(),
+                DeleteAction::make()
+                    ->disabled(fn (Bidang $record): bool => $record->pegawais()->exists())
+                    ->tooltip(fn (Bidang $record): ?string => $record->pegawais()->exists() ? 'Bidang masih dipakai pegawai' : null),
             ])
+            ->checkIfRecordIsSelectableUsing(
+                fn (Bidang $record): bool => ! $record->pegawais()->exists(),
+            )
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
