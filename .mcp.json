@@ -1,0 +1,12 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "wsl.exe",
+            "args": [
+                "/home/linuxbrew/.linuxbrew/Cellar/php@8.4/8.4.27/bin/php",
+                "/home/agungdh/repo/simple-filament-crud/artisan",
+                "boost:mcp"
+            ]
+        }
+    }
+}
