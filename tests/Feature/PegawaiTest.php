@@ -32,6 +32,17 @@ it('can list pegawais', function () {
         ->assertCanSeeTableRecords($pegawais);
 });
 
+it('does not link table rows to the edit page', function () {
+    $pegawai = Pegawai::factory()->create();
+
+    $table = Livewire::test(ListPegawais::class)
+        ->instance()
+        ->getTable();
+
+    expect($table->getRecordUrl($pegawai))->toBeNull()
+        ->and($table->getRecordAction($pegawai))->toBeNull();
+});
+
 it('can filter pegawais by bidang', function () {
     $bidang = Bidang::factory()->create();
     $matchingPegawai = Pegawai::factory()->create([

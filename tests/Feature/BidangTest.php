@@ -32,6 +32,17 @@ it('can list bidangs', function () {
         ->assertCanSeeTableRecords($bidangs);
 });
 
+it('does not link table rows to the edit page', function () {
+    $bidang = Bidang::factory()->create();
+
+    $table = Livewire::test(ListBidangs::class)
+        ->instance()
+        ->getTable();
+
+    expect($table->getRecordUrl($bidang))->toBeNull()
+        ->and($table->getRecordAction($bidang))->toBeNull();
+});
+
 it('can create a bidang', function () {
     Livewire::test(CreateBidang::class)
         ->assertActionDoesNotExist('createAnother')

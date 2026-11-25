@@ -1,0 +1,21 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+/* Dense tables: fit more rows on screen since the UI is data-focused. */
+.fi-ta-table > thead > tr > .fi-ta-header-cell {
+    @apply py-2;
+}
+
+.fi-ta-table > tbody > tr > .fi-ta-cell > .fi-ta-text:not(.fi-inline) {
+    @apply py-2;
+}
+
+.fi-ta-table > tbody > tr > .fi-ta-cell:has(.fi-ta-actions) {
+    @apply py-1.5;
+}
+
+.fi-ta-table > tbody > tr > .fi-ta-selection-cell {
+    @apply py-2;
+}

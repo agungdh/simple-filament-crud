@@ -15,6 +15,8 @@ class BidangsTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->recordUrl(null)
+            ->recordAction(null)
             ->columns([
                 TextColumn::make('bidang')
                     ->label('Bidang')
