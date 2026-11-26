@@ -22,6 +22,7 @@ class PegawaisTable
         return $table
             ->recordUrl(null)
             ->recordAction(null)
+            ->modifyQueryUsing(fn (Builder $query): Builder => $query->withCount(Pegawai::KEGIATAN_RELATIONS))
             ->columns([
                 TextColumn::make('nip')
                     ->label('NIP')
@@ -107,11 +108,15 @@ class PegawaisTable
             ->recordActions([
                 EditAction::make(),
                 DeleteAction::make()
-                    ->disabled(fn (Pegawai $record): bool => $record->user_id === auth()->id())
-                    ->tooltip(fn (Pegawai $record): ?string => $record->user_id === auth()->id() ? 'Tidak dapat menghapus akun sendiri' : null),
+                    ->disabled(fn (Pegawai $record): bool => $record->user_id === auth()->id() || $record->hasKegiatan())
+                    ->tooltip(fn (Pegawai $record): ?string => match (true) {
+                        $record->user_id === auth()->id() => 'Tidak dapat menghapus akun sendiri',
+                        $record->hasKegiatan() => 'Pegawai masih memiliki data kegiatan',
+                        default => null,
+                    }),
             ])
             ->checkIfRecordIsSelectableUsing(
-                fn (Pegawai $record): bool => $record->user_id !== auth()->id(),
+                fn (Pegawai $record): bool => $record->user_id !== auth()->id() && ! $record->hasKegiatan(),
             )
             ->toolbarActions([
                 BulkActionGroup::make([

@@ -10,6 +10,7 @@ use App\Filament\Resources\Pegawais\PegawaiResource;
 use App\Models\Bidang;
 use App\Models\PangkatGolongan;
 use App\Models\Pegawai;
+use App\Models\Seminar;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
 use Filament\Actions\Testing\TestAction;
@@ -315,6 +316,20 @@ it('cannot delete the currently authenticated pegawai', function () {
 
     $pegawai = Pegawai::factory()->create([
         'user_id' => $admin->id,
+    ]);
+
+    Livewire::test(ListPegawais::class)
+        ->assertActionDisabled(TestAction::make('delete')->table($pegawai));
+
+    assertDatabaseHas(Pegawai::class, [
+        'id' => $pegawai->id,
+    ]);
+});
+
+it('cannot delete a pegawai that has kegiatan records', function () {
+    $pegawai = Pegawai::factory()->create();
+    Seminar::factory()->create([
+        'pegawai_id' => $pegawai->id,
     ]);
 
     Livewire::test(ListPegawais::class)
