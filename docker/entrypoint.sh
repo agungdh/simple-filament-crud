@@ -21,10 +21,16 @@ case "$PROFILE" in
             exit 1
         fi
 
+        exec /usr/bin/supervisord -c /etc/supervisor/supervisord.conf -n
+        ;;
+    deploy)
+        if [ ! -f "$APP_DIR/.env" ]; then
+            echo "Missing $APP_DIR/.env. Bind mount your .env file before running the deploy step."
+            exit 1
+        fi
+
         build_assets
         optimize_app
-
-        exec /usr/bin/supervisord -c /etc/supervisor/supervisord.conf -n
         ;;
     queue)
         exec php "$APP_DIR/artisan" queue:work --sleep=3 --tries=3
@@ -34,7 +40,7 @@ case "$PROFILE" in
         ;;
     *)
         echo "Unknown profile: $PROFILE"
-        echo "Usage: entrypoint.sh {web|queue|scheduler}"
+        echo "Usage: entrypoint.sh {web|deploy|queue|scheduler}"
         exit 1
         ;;
 esac
