@@ -32,10 +32,9 @@ RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framewor
 
 USER www-data
 
-RUN composer install --optimize-autoloader --no-interaction --prefer-dist
+RUN composer install --no-interaction --prefer-dist
 
 RUN npm ci
-RUN npm run build
 
 RUN php artisan storage:link
 
