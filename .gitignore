@@ -28,3 +28,10 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Laravel Boost generated (local only)
+/AGENTS.md
+/CLAUDE.md
+/.mcp.json
+/opencode.json
+/.agents/
