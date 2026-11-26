@@ -36,3 +36,7 @@ Thumbs.db
 /opencode.json
 /.agents/
 /boost.json
+
+# Local dev scratch space (keep the folder itself)
+/.dev/*
+!/.dev/.gitkeep
