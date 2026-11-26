@@ -13,10 +13,29 @@ return new class extends Migration
     {
         Schema::create('pegawais', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->foreignId('user_id')->unique()->constrained('users')->restrictOnDelete()->restrictOnUpdate();
             $table->string('nip')->unique();
+            $table->string('nama');
             $table->foreignId('bidang_id')->constrained('bidangs')->restrictOnDelete()->restrictOnUpdate();
+            $table->foreignId('pangkat_golongan_id')->nullable()->constrained('pangkat_golongans')->restrictOnDelete()->restrictOnUpdate();
+            $table->enum('status', ['aktif', 'non aktif'])->default('aktif');
+            $table->string('jabatan')->nullable();
+            $table->enum('kategori_jabatan', [
+                'struktural',
+                'fungsional auditor',
+                'fungsional tertentu',
+            ])->nullable();
+            $table->string('peran')->nullable();
+            $table->enum('kategori_kebutuhan_jam_pelatihan', [
+                'admin',
+                'pejabat',
+                'auditor',
+            ])->nullable();
             $table->timestamps();
+
+            $table->index('status');
+            $table->index('kategori_jabatan');
+            $table->index('kategori_kebutuhan_jam_pelatihan');
         });
     }
 

@@ -18,7 +18,7 @@ use function Pest\Laravel\assertDatabaseMissing;
 beforeEach(function () {
     Filament::setCurrentPanel('admin');
 
-    actingAs(User::factory()->create());
+    actingAs(User::factory()->admin()->create());
 });
 
 it('can list bidangs', function () {
@@ -124,4 +124,10 @@ it('cannot delete a bidang that is used by a pegawai', function () {
     assertDatabaseHas(Bidang::class, [
         'id' => $bidang->id,
     ]);
+});
+
+it('forbids the pegawai role from accessing the bidang resource', function () {
+    actingAs(User::factory()->pegawai()->create());
+
+    $this->get(BidangResource::getUrl('index'))->assertForbidden();
 });
