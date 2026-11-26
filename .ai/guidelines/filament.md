@@ -35,3 +35,13 @@ protected function getRedirectUrl(): string
 
 - Use the `#[Fillable([...])]` and `#[Hidden([...])]` attributes instead of the `$fillable`/`$hidden` properties.
 - Add a factory and a seeder for every new model.
+
+## Foreign keys
+
+- Every foreign key we define in our own migrations must restrict both delete and update, so a parent record cannot be removed or re-keyed while child records still reference it:
+
+```php
+$table->foreignId('bidang_id')->constrained('bidangs')->restrictOnDelete()->restrictOnUpdate();
+```
+
+- Leave foreign keys that come from framework or package migrations untouched.

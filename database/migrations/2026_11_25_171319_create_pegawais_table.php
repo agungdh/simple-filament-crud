@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('nip')->unique();
-            $table->foreignId('bidang_id')->constrained('bidangs')->restrictOnDelete();
+            $table->foreignId('bidang_id')->constrained('bidangs')->restrictOnDelete()->restrictOnUpdate();
             $table->timestamps();
         });
     }
