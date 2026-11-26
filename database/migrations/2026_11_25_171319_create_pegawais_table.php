@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->unique()->constrained('users')->restrictOnDelete()->restrictOnUpdate();
             $table->string('nip')->unique();
             $table->string('nama');
-            $table->foreignId('bidang_id')->constrained('bidangs')->restrictOnDelete()->restrictOnUpdate();
-            $table->foreignId('pangkat_golongan_id')->nullable()->constrained('pangkat_golongans')->restrictOnDelete()->restrictOnUpdate();
+            $table->foreignId('bidang_id')->index()->constrained('bidangs')->restrictOnDelete()->restrictOnUpdate();
+            $table->foreignId('pangkat_golongan_id')->nullable()->index()->constrained('pangkat_golongans')->restrictOnDelete()->restrictOnUpdate();
             $table->enum('status', ['aktif', 'non aktif'])->default('aktif');
             $table->string('jabatan')->nullable();
             $table->enum('kategori_jabatan', [
@@ -31,7 +31,7 @@ return new class extends Migration
                 'pejabat',
                 'auditor',
             ])->nullable();
-            $table->timestamps();
+            $table->timestampsTz();
 
             $table->index('status');
             $table->index('kategori_jabatan');

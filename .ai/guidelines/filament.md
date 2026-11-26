@@ -41,7 +41,12 @@ protected function getRedirectUrl(): string
 - Every foreign key we define in our own migrations must restrict both delete and update, so a parent record cannot be removed or re-keyed while child records still reference it:
 
 ```php
-$table->foreignId('bidang_id')->constrained('bidangs')->restrictOnDelete()->restrictOnUpdate();
+$table->foreignId('bidang_id')
+    ->index()
+    ->constrained('bidangs')
+    ->restrictOnDelete()
+    ->restrictOnUpdate();
 ```
 
+- PostgreSQL does not index foreign-key columns automatically. Add `->index()` before `->constrained()` unless an existing index already covers the column; see `.ai/guidelines/database.md` for the full PostgreSQL rules.
 - Leave foreign keys that come from framework or package migrations untouched.

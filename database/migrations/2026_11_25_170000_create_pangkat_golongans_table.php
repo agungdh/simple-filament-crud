@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('pangkat');
             $table->string('golongan');
             $table->string('ruang');
-            $table->timestamps();
+            $table->timestampsTz();
 
             $table->unique(['pangkat', 'golongan', 'ruang']);
         });
