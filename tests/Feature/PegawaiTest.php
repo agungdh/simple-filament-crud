@@ -9,14 +9,11 @@ use App\Models\Pegawai;
 use App\Models\User;
 use Filament\Actions\Testing\TestAction;
 use Filament\Facades\Filament;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\assertDatabaseMissing;
-
-uses(RefreshDatabase::class);
 
 beforeEach(function () {
     Filament::setCurrentPanel('admin');

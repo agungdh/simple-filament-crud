@@ -47,6 +47,11 @@
             "Composer\\Config::disableProcessTimeout",
             "@php artisan dev"
         ],
+        "db:reset": [
+            "docker compose down -v",
+            "docker compose up -d --wait",
+            "@php artisan migrate --seed --force"
+        ],
         "test": [
             "@php artisan config:clear --ansi @no_additional_args",
             "@php artisan test"
