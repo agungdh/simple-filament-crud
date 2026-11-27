@@ -27,6 +27,8 @@ class DiklatResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Diklat';
 
+    protected static ?string $slug = 'diklat';
+
     protected static ?string $recordTitleAttribute = 'nomor_surat';
 
     public static function form(Schema $schema): Schema

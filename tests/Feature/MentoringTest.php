@@ -45,6 +45,21 @@ it('only lists the mentorings owned by the authenticated pegawai', function () {
         ->assertCanNotSeeTableRecords([$others]);
 });
 
+it('only shows the pegawai column to admins', function () {
+    $pegawai = Pegawai::factory()->create();
+    Mentoring::factory()->create(['pegawai_id' => $pegawai->id]);
+
+    actingAs($pegawai->user);
+
+    Livewire::test(ListMentorings::class)
+        ->assertTableColumnHidden('pegawai.nama');
+
+    actingAs(User::factory()->admin()->create());
+
+    Livewire::test(ListMentorings::class)
+        ->assertTableColumnVisible('pegawai.nama');
+});
+
 it('does not link table rows to the edit page', function () {
     actingAs(User::factory()->admin()->create());
 

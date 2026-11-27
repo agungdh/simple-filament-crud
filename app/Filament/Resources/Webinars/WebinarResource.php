@@ -30,6 +30,8 @@ class WebinarResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Webinar';
 
+    protected static ?string $slug = 'webinar';
+
     protected static ?string $recordTitleAttribute = 'materi_pengembangan';
 
     public static function form(Schema $schema): Schema

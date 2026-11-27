@@ -30,6 +30,8 @@ class MentoringResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Mentoring';
 
+    protected static ?string $slug = 'mentoring';
+
     protected static ?string $recordTitleAttribute = 'materi_pengembangan';
 
     public static function form(Schema $schema): Schema

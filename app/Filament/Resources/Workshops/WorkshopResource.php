@@ -30,6 +30,8 @@ class WorkshopResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Workshop';
 
+    protected static ?string $slug = 'workshop';
+
     protected static ?string $recordTitleAttribute = 'materi_pengembangan';
 
     public static function form(Schema $schema): Schema

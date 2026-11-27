@@ -27,6 +27,8 @@ class PpmResource extends Resource
 
     protected static ?string $pluralModelLabel = 'PPM';
 
+    protected static ?string $slug = 'ppm';
+
     protected static ?string $recordTitleAttribute = 'nomor_surat';
 
     public static function form(Schema $schema): Schema

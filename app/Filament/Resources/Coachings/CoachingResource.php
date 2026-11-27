@@ -30,6 +30,8 @@ class CoachingResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Coaching';
 
+    protected static ?string $slug = 'coaching';
+
     protected static ?string $recordTitleAttribute = 'materi_pengembangan';
 
     public static function form(Schema $schema): Schema

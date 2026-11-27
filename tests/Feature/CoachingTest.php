@@ -45,6 +45,21 @@ it('only lists the coachings owned by the authenticated pegawai', function () {
         ->assertCanNotSeeTableRecords([$others]);
 });
 
+it('only shows the pegawai column to admins', function () {
+    $pegawai = Pegawai::factory()->create();
+    Coaching::factory()->create(['pegawai_id' => $pegawai->id]);
+
+    actingAs($pegawai->user);
+
+    Livewire::test(ListCoachings::class)
+        ->assertTableColumnHidden('pegawai.nama');
+
+    actingAs(User::factory()->admin()->create());
+
+    Livewire::test(ListCoachings::class)
+        ->assertTableColumnVisible('pegawai.nama');
+});
+
 it('does not link table rows to the edit page', function () {
     actingAs(User::factory()->admin()->create());
 

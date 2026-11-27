@@ -45,6 +45,21 @@ it('only lists the belajar mandiris owned by the authenticated pegawai', functio
         ->assertCanNotSeeTableRecords([$others]);
 });
 
+it('only shows the pegawai column to admins', function () {
+    $pegawai = Pegawai::factory()->create();
+    BelajarMandiri::factory()->create(['pegawai_id' => $pegawai->id]);
+
+    actingAs($pegawai->user);
+
+    Livewire::test(ListBelajarMandiris::class)
+        ->assertTableColumnHidden('pegawai.nama');
+
+    actingAs(User::factory()->admin()->create());
+
+    Livewire::test(ListBelajarMandiris::class)
+        ->assertTableColumnVisible('pegawai.nama');
+});
+
 it('does not link table rows to the edit page', function () {
     actingAs(User::factory()->admin()->create());
 

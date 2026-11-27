@@ -30,6 +30,8 @@ class BelajarMandiriResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Belajar Mandiri';
 
+    protected static ?string $slug = 'belajar-mandiri';
+
     protected static ?string $recordTitleAttribute = 'materi_pengembangan';
 
     public static function form(Schema $schema): Schema

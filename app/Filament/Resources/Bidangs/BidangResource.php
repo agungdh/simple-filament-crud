@@ -27,6 +27,8 @@ class BidangResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Bidang';
 
+    protected static ?string $slug = 'bidang';
+
     protected static ?string $recordTitleAttribute = 'bidang';
 
     public static function form(Schema $schema): Schema

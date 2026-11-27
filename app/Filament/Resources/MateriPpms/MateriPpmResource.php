@@ -27,6 +27,8 @@ class MateriPpmResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Materi PPM';
 
+    protected static ?string $slug = 'materi-ppm';
+
     protected static ?string $recordTitleAttribute = 'materi_pengembangan';
 
     public static function form(Schema $schema): Schema

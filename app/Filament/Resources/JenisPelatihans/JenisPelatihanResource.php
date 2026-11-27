@@ -27,6 +27,8 @@ class JenisPelatihanResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Jenis Pelatihan';
 
+    protected static ?string $slug = 'jenis-pelatihan';
+
     protected static ?string $recordTitleAttribute = 'jenis_pelatihan';
 
     public static function form(Schema $schema): Schema

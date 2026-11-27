@@ -28,7 +28,8 @@ final class KegiatanTable
                     ->label('Pegawai')
                     ->description(fn (Model $record): ?string => $record->pegawai?->nip)
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->visible(fn (): bool => auth()->user()?->hasRole('admin')),
                 TextColumn::make('materi_pengembangan')
                     ->label('Materi Pengembangan')
                     ->searchable()

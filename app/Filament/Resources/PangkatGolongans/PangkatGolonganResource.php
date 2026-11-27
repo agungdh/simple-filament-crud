@@ -27,6 +27,8 @@ class PangkatGolonganResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Pangkat Golongan';
 
+    protected static ?string $slug = 'pangkat-golongan';
+
     protected static ?string $recordTitleAttribute = 'pangkat';
 
     public static function form(Schema $schema): Schema

@@ -23,6 +23,19 @@ protected function getRedirectUrl(): string
 - `Create` pages must disable the "create another" button with `protected static bool $canCreateAnother = false;`.
 
 - Use `$recordTitleAttribute` so records are labelled by their main column, and set `$modelLabel`/`$pluralModelLabel` explicitly for Indonesian nouns that do not pluralize (e.g. `Bidang`).
+- Resource URL slugs must be singular. Filament pluralizes the resource name by default, so set the slug explicitly on every resource:
+
+```php
+protected static ?string $slug = 'pegawai';
+```
+
+- In activity tables, the `Pegawai` column (`pegawai.nama` with the NIP description) is admin-only. A regular pegawai only sees their own records, so the column is redundant for them:
+
+```php
+TextColumn::make('pegawai.nama')
+    ->visible(fn (): bool => auth()->user()?->hasRole('admin'));
+```
+
 - Put master data resources under the `Data Master` navigation group.
 
 ## Table density

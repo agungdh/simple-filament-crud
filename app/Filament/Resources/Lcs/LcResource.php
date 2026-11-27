@@ -30,6 +30,8 @@ class LcResource extends Resource
 
     protected static ?string $pluralModelLabel = 'LC';
 
+    protected static ?string $slug = 'lc';
+
     protected static ?string $recordTitleAttribute = 'materi_pengembangan';
 
     public static function form(Schema $schema): Schema

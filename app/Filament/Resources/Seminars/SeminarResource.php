@@ -30,6 +30,8 @@ class SeminarResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Seminar';
 
+    protected static ?string $slug = 'seminar';
+
     protected static ?string $recordTitleAttribute = 'materi_pengembangan';
 
     public static function form(Schema $schema): Schema
