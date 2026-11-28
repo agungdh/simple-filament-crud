@@ -23,6 +23,8 @@ class MateriPpmResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Kartu Kontrol';
 
+    protected static ?int $navigationSort = 3;
+
     protected static ?string $modelLabel = 'Materi PPM';
 
     protected static ?string $pluralModelLabel = 'Materi PPM';

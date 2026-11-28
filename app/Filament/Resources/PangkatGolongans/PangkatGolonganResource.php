@@ -23,6 +23,8 @@ class PangkatGolonganResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Data Master';
 
+    protected static ?int $navigationSort = 4;
+
     protected static ?string $modelLabel = 'Pangkat Golongan';
 
     protected static ?string $pluralModelLabel = 'Pangkat Golongan';

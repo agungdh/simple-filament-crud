@@ -26,6 +26,8 @@ class SeminarResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Pengembangan';
 
+    protected static ?int $navigationSort = 1;
+
     protected static ?string $modelLabel = 'Seminar';
 
     protected static ?string $pluralModelLabel = 'Seminar';

@@ -26,6 +26,8 @@ class LcResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Pengembangan';
 
+    protected static ?int $navigationSort = 3;
+
     protected static ?string $modelLabel = 'LC';
 
     protected static ?string $pluralModelLabel = 'LC';

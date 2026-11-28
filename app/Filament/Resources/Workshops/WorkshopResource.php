@@ -26,6 +26,8 @@ class WorkshopResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Lainnya';
 
+    protected static ?int $navigationSort = 4;
+
     protected static ?string $modelLabel = 'Workshop';
 
     protected static ?string $pluralModelLabel = 'Workshop';

@@ -26,6 +26,8 @@ class MentoringResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Lainnya';
 
+    protected static ?int $navigationSort = 2;
+
     protected static ?string $modelLabel = 'Mentoring';
 
     protected static ?string $pluralModelLabel = 'Mentoring';

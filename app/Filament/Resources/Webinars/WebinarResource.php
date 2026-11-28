@@ -26,6 +26,8 @@ class WebinarResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Pengembangan';
 
+    protected static ?int $navigationSort = 2;
+
     protected static ?string $modelLabel = 'Webinar';
 
     protected static ?string $pluralModelLabel = 'Webinar';

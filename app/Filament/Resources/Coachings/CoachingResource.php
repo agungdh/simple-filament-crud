@@ -26,6 +26,8 @@ class CoachingResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Lainnya';
 
+    protected static ?int $navigationSort = 3;
+
     protected static ?string $modelLabel = 'Coaching';
 
     protected static ?string $pluralModelLabel = 'Coaching';

@@ -23,6 +23,8 @@ class JenisPelatihanResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Data Master';
 
+    protected static ?int $navigationSort = 3;
+
     protected static ?string $modelLabel = 'Jenis Pelatihan';
 
     protected static ?string $pluralModelLabel = 'Jenis Pelatihan';

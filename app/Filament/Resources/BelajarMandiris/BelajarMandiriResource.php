@@ -26,6 +26,8 @@ class BelajarMandiriResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Lainnya';
 
+    protected static ?int $navigationSort = 1;
+
     protected static ?string $modelLabel = 'Belajar Mandiri';
 
     protected static ?string $pluralModelLabel = 'Belajar Mandiri';
