@@ -3,6 +3,18 @@
 @source '../../../../app/Filament/**/*';
 @source '../../../../resources/views/filament/**/*';
 
+/* Login wallpaper: a random, freely licensed photo sits behind the auth card.
+   The dark scrim keeps the card readable and acts as the fallback when the
+   external image cannot be loaded. */
+body.fi-login-wallpaper .fi-simple-layout {
+    background-color: #0f172a;
+    background-image:
+        linear-gradient(to bottom, rgb(15 23 42 / 0.55), rgb(15 23 42 / 0.8)),
+        var(--login-wallpaper-url, none);
+    background-position: center;
+    background-size: cover;
+}
+
 /* Dense tables: fit more rows on screen since the UI is data-focused. */
 .fi-ta-table > thead > tr > .fi-ta-header-cell {
     @apply py-2;
