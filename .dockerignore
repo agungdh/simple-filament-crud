@@ -6,6 +6,9 @@
 node_modules
 vendor
 
+# Never bake a local SQLite database into the image.
+database/*.sqlite*
+
 .env
 .env.*
 !.env.example

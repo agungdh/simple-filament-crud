@@ -9,6 +9,19 @@ build_assets() {
     su -s /bin/bash www-data -c "cd $APP_DIR && npm run build"
 }
 
+migrate_database() {
+    echo "Running database migrations..."
+    su -s /bin/bash www-data -c "cd $APP_DIR && php artisan migrate --force"
+}
+
+prepare_database() {
+    if [ ! -f "$APP_DIR/database/database.sqlite" ]; then
+        echo "Creating an empty SQLite database..."
+        touch "$APP_DIR/database/database.sqlite"
+        chown www-data:www-data "$APP_DIR/database/database.sqlite"
+    fi
+}
+
 optimize_app() {
     echo "Optimizing application..."
     su -s /bin/bash www-data -c "cd $APP_DIR && php artisan optimize"
@@ -30,13 +43,16 @@ case "$PROFILE" in
         fi
 
         build_assets
+        prepare_database
+        migrate_database
         optimize_app
         ;;
     queue)
-        exec php "$APP_DIR/artisan" queue:work --sleep=3 --tries=3
+        # Run as www-data so SQLite WAL/SHM files are not created as root.
+        exec su -s /bin/bash www-data -c "cd $APP_DIR && exec php artisan queue:work --sleep=3 --tries=3 --timeout=90 --max-time=3600"
         ;;
     scheduler)
-        exec php "$APP_DIR/artisan" schedule:work
+        exec su -s /bin/bash www-data -c "cd $APP_DIR && exec php artisan schedule:work"
         ;;
     *)
         echo "Unknown profile: $PROFILE"
