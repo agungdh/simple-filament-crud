@@ -28,9 +28,7 @@ WORKDIR /var/www/html
 
 COPY --chown=www-data:www-data . .
 
-RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs bootstrap/cache database \
-    && touch database/database.sqlite \
-    && chown www-data:www-data database/database.sqlite
+RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs bootstrap/cache
 
 USER www-data
 

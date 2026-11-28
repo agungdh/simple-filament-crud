@@ -14,14 +14,6 @@ migrate_database() {
     su -s /bin/bash www-data -c "cd $APP_DIR && php artisan migrate --force"
 }
 
-prepare_database() {
-    if [ ! -f "$APP_DIR/database/database.sqlite" ]; then
-        echo "Creating an empty SQLite database..."
-        touch "$APP_DIR/database/database.sqlite"
-        chown www-data:www-data "$APP_DIR/database/database.sqlite"
-    fi
-}
-
 optimize_app() {
     echo "Optimizing application..."
     su -s /bin/bash www-data -c "cd $APP_DIR && php artisan optimize"
@@ -43,7 +35,6 @@ case "$PROFILE" in
         fi
 
         build_assets
-        prepare_database
         migrate_database
         optimize_app
         ;;
