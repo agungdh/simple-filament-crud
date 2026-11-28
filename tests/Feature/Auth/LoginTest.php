@@ -62,29 +62,30 @@ it('renders the dashboard for an authenticated pegawai', function () {
     $this->get('/admin')->assertOk();
 });
 
-it('renders a random wallpaper on the login page', function () {
+it('renders a curated nature wallpaper on the login page', function () {
     config([
         'login.wallpaper.enabled' => true,
         'login.wallpaper.url' => null,
         'login.wallpaper.provider' => 'https://picsum.photos',
         'login.wallpaper.blur' => 2,
+        'login.wallpaper.ids' => [10, 29, 128],
     ]);
 
-    $pattern = "/--login-wallpaper-url: url\\('([^']+)'\\)/";
-
-    $firstResponse = $this->get('/admin/login')
+    $response = $this->get('/admin/login')
         ->assertOk()
         ->assertSee('fi-login-wallpaper', false);
 
-    $secondResponse = $this->get('/admin/login')->assertOk();
+    preg_match("/--login-wallpaper-url: url\\('([^']+)'\\)/", $response->getContent(), $match);
 
-    preg_match($pattern, $firstResponse->getContent(), $firstMatch);
-    preg_match($pattern, $secondResponse->getContent(), $secondMatch);
+    $wallpaperUrl = $match[1] ?? null;
 
-    expect($firstMatch[1] ?? null)
-        ->toStartWith('https://picsum.photos/seed/')
-        ->and($secondMatch[1] ?? null)->toStartWith('https://picsum.photos/seed/')
-        ->and($firstMatch[1])->not->toBe($secondMatch[1]);
+    expect($wallpaperUrl)
+        ->not->toBeNull()
+        ->toMatch('/^https:\/\/picsum\.photos\/id\/\d+\/1920\/1080\?blur=2$/');
+
+    preg_match('/\/id\/(\d+)\//', $wallpaperUrl, $idMatch);
+
+    expect([10, 29, 128])->toContain((int) ($idMatch[1] ?? 0));
 });
 
 it('can disable the login wallpaper', function () {

@@ -6,7 +6,7 @@ use Filament\Auth\Pages\Login as BaseLogin;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Component;
 use Filament\Support\Components\Attributes\Unexposed;
-use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
 use SensitiveParameter;
 
@@ -42,10 +42,16 @@ class Login extends BaseLogin
             return filter_var($configuredUrl, FILTER_VALIDATE_URL) ?: null;
         }
 
-        $provider = rtrim((string) config('login.wallpaper.provider'), '/');
-        $seed = Str::random(16);
+        $imageIds = config('login.wallpaper.ids', []);
 
-        $url = "{$provider}/seed/{$seed}/1920/1080";
+        if (blank($imageIds)) {
+            return null;
+        }
+
+        $provider = rtrim((string) config('login.wallpaper.provider'), '/');
+        $imageId = Arr::random($imageIds);
+
+        $url = "{$provider}/id/{$imageId}/1920/1080";
         $blur = (int) config('login.wallpaper.blur');
 
         $url = $blur > 0 ? "{$url}?blur={$blur}" : $url;
