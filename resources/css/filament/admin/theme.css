@@ -15,6 +15,18 @@ body.fi-login-wallpaper .fi-simple-layout {
     background-size: cover;
 }
 
+/* Frosted login card: keep the wallpaper visible through the form while the
+   text and inputs stay readable. Tweak the alpha for more or less see-through. */
+body.fi-login-wallpaper .fi-simple-main {
+    background-color: rgb(255 255 255 / 0.85);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+}
+
+.dark body.fi-login-wallpaper .fi-simple-main {
+    background-color: rgb(17 24 39 / 0.85);
+}
+
 /* Dense tables: fit more rows on screen since the UI is data-focused. */
 .fi-ta-table > thead > tr > .fi-ta-header-cell {
     @apply py-2;
