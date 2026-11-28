@@ -11,9 +11,9 @@ This project runs on SQLite only: `DB_CONNECTION=sqlite` with the database file 
 
 ## Timestamps
 
-- SQLite stores instants as text. Keep using `timestampsTz()`, `timestampTz()`, `dateTimeTz()`, `timeTz()`, and `softDeletesTz()` so the schema stays portable and timezone-aware; they map to `datetime` on SQLite.
-- Keep `APP_TIMEZONE=UTC`; convert to the display timezone in the presentation layer only.
-- Use `date` for calendar dates and the TZ-aware timestamp helpers for instants; do not store dates as strings.
+- SQLite stores instants as text. Use plain `timestamps()`, `timestamp()`, `dateTime()`, `time()`, and `softDeletes()`; the PostgreSQL-specific TZ variants (`timestampsTz()`, `timestampTz()`, etc.) add nothing on SQLite.
+- Keep `APP_TIMEZONE=UTC`; store UTC and convert to the display timezone in the presentation layer only.
+- Use `date` for calendar dates and `timestamp()` for instants; do not store dates as strings.
 - `useCurrent()` on a timestamp column is fine; SQLite resolves it to `CURRENT_TIMESTAMP`.
 
 ```php
@@ -21,7 +21,7 @@ Schema::create('pegawais', function (Blueprint $table) {
     $table->id();
     $table->string('nip')->unique();
     // ...
-    $table->timestampsTz();
+    $table->timestamps();
 });
 ```
 

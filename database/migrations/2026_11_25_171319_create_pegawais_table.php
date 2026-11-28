@@ -31,7 +31,7 @@ return new class extends Migration
                 'pejabat',
                 'auditor',
             ])->nullable();
-            $table->timestampsTz();
+            $table->timestamps();
 
             $table->index('status');
             $table->index('kategori_jabatan');

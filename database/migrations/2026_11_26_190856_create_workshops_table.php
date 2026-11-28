@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('jumlah_jam');
             $table->string('berkas')->nullable();
             $table->string('filename')->nullable();
-            $table->timestampsTz();
+            $table->timestamps();
 
             $table->index('tanggal_pelaksanaan');
         });

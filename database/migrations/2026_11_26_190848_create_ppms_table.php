@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('materi_pengembangan');
             $table->date('tanggal_pelaksanaan');
             $table->integer('jumlah_jam_pelatihan');
-            $table->timestampsTz();
+            $table->timestamps();
 
             $table->index('nomor_surat');
             $table->index('tanggal_pelaksanaan');

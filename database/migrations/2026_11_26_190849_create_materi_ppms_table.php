@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('tanggal_pelaksanaan');
             $table->string('link_materi')->nullable();
             $table->string('link_dokumentasi')->nullable();
-            $table->timestampsTz();
+            $table->timestamps();
 
             $table->index('nomor_surat');
             $table->index('tanggal_pelaksanaan');

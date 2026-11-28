@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('jumlah_jam_pelatihan');
             $table->string('berkas')->nullable();
             $table->string('filename')->nullable();
-            $table->timestampsTz();
+            $table->timestamps();
 
             $table->index('nomor_surat');
             $table->index('dari_tanggal_pelaksanaan');

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('jenis_pelatihans', function (Blueprint $table) {
             $table->id();
             $table->string('jenis_pelatihan')->unique();
-            $table->timestampsTz();
+            $table->timestamps();
         });
     }
 

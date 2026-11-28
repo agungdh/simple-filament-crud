@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->rememberToken();
-            $table->timestampsTz();
+            $table->timestamps();
         });
 
         Schema::create('sessions', function (Blueprint $table) {
