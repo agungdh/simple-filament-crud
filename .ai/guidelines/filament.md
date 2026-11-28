@@ -61,5 +61,5 @@ $table->foreignId('bidang_id')
     ->restrictOnUpdate();
 ```
 
-- PostgreSQL does not index foreign-key columns automatically. Add `->index()` before `->constrained()` unless an existing index already covers the column; see `.ai/guidelines/database.md` for the full PostgreSQL rules.
+- SQLite does not index foreign-key columns automatically. Add `->index()` before `->constrained()` unless an existing index already covers the column; see `.ai/guidelines/database.md` for the full SQLite rules.
 - Leave foreign keys that come from framework or package migrations untouched.

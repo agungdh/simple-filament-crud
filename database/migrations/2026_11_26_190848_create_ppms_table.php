@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -24,8 +23,6 @@ return new class extends Migration
             $table->index('nomor_surat');
             $table->index('tanggal_pelaksanaan');
         });
-
-        DB::statement('alter table ppms add constraint ppms_jumlah_jam_pelatihan_check check (jumlah_jam_pelatihan > 0)');
     }
 
     /**

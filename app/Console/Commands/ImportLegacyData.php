@@ -72,15 +72,12 @@ class ImportLegacyData extends Command
         }
 
         DB::transaction(function () use ($tables): void {
-            DB::statement("set local time zone 'UTC'");
-
             if ($this->option('fresh')) {
                 $this->truncateTargetTables();
             }
 
             $this->importTables($tables);
             $this->importRoles($tables);
-            $this->resetSequences();
         });
 
         $this->renderSummary($tables, imported: true);
@@ -327,12 +324,18 @@ class ImportLegacyData extends Command
      */
     private function truncateTargetTables(): void
     {
-        $tables = array_map(
-            static fn (string $table): string => '"'.$table.'"',
-            [...self::TABLES, 'model_has_roles'],
-        );
+        DB::table('model_has_roles')->delete();
 
-        DB::statement('truncate table '.implode(', ', $tables).' restart identity cascade');
+        // Delete children before parents so the foreign keys stay satisfied.
+        foreach (array_reverse(self::TABLES) as $table) {
+            DB::table($table)->delete();
+        }
+
+        if (Schema::hasTable('sqlite_sequence')) {
+            DB::table('sqlite_sequence')
+                ->whereIn('name', [...self::TABLES, 'model_has_roles'])
+                ->delete();
+        }
     }
 
     /**
@@ -408,21 +411,6 @@ class ImportLegacyData extends Command
 
         foreach ($assignments as $userId => $roles) {
             $users->get($userId)?->syncRoles($roles);
-        }
-    }
-
-    /**
-     * Point every identity sequence at the highest imported id.
-     */
-    private function resetSequences(): void
-    {
-        foreach (self::TABLES as $table) {
-            $quoted = '"'.$table.'"';
-
-            DB::statement(
-                'select setval(pg_get_serial_sequence(?, \'id\'), coalesce((select max(id) from '.$quoted.'), 1), (select count(*) > 0 from '.$quoted.'))',
-                [$table],
-            );
         }
     }
 

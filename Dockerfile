@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get update \
     && apt-get install -y \
         php8.5-cli php8.5-fpm \
-        php8.5-pgsql php8.5-redis php8.5-zip php8.5-curl \
+        php8.5-sqlite3 php8.5-zip php8.5-curl \
         php8.5-mbstring php8.5-xml php8.5-intl php8.5-bcmath \
         php8.5-gd php8.5-readline \
         nginx supervisor \

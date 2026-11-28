@@ -28,15 +28,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
-      # Same services and same database as local dev.
-      - name: Start services
-        run: docker compose up -d --wait
-
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.5'
-          extensions: pdo_pgsql, pgsql, redis, intl, gd, zip, bcmath, exif, pcntl
+          extensions: pdo_sqlite, sqlite3, intl, gd, zip, bcmath, exif, pcntl
           coverage: none
           tools: composer:v2
 

@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -29,9 +28,6 @@ return new class extends Migration
             $table->index('dari_tanggal_pelaksanaan');
             $table->index('sampai_tanggal_pelaksanaan');
         });
-
-        DB::statement('alter table diklats add constraint diklats_jumlah_jam_pelatihan_check check (jumlah_jam_pelatihan > 0)');
-        DB::statement('alter table diklats add constraint diklats_tanggal_pelaksanaan_check check (sampai_tanggal_pelaksanaan >= dari_tanggal_pelaksanaan)');
     }
 
     /**

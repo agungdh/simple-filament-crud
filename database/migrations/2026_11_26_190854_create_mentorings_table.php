@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -24,8 +23,6 @@ return new class extends Migration
 
             $table->index('tanggal_pelaksanaan');
         });
-
-        DB::statement('alter table mentorings add constraint mentorings_jumlah_jam_check check (jumlah_jam > 0)');
     }
 
     /**
